@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+
+
+{% block content %}
+  <div class="global-container bg-dark">
+  <br><br><br><br><br>
+  <div class="row justify-content-center">
+    <div class="col-3">
+      <div class="card login-form bg-secondary">
+        <div class="card-body">
+      <h2 class="text-center text-light">LOG-IN</h2>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="col-sm-12 mt-2">
+        <div class="alert alert-warning text-center">
+          {{ message }}
+        </div> 
+      </div>
+      {% endfor %}
+    
+    {% endif %}
+          <div class="card-text text-center">
+      <form method="post" novalidate="">
+        {% csrf_token %}
+        <div class="text-center" style="text-align: center;">
+        {{ form| bootstrap}}
+      </div>
+      <div class="text-center mt-2">
+        <i class="text-dark">𝑫𝒐𝒏❜𝒕 𝒉𝒂𝒗𝒆 𝒂𝒏 𝒂𝒄𝒄𝒐𝒖𝒏𝒕 ?</i>
+      </div>
+      <div class="text-center mt-3 ">
+        <button type="submit" class="btn btn-success">𝑳𝒐𝒈 𝑰𝒏</button>
+        <a href="{% url 'signup' %}" class="btn btn-warning">𝑆𝑖𝑔𝑛-𝑈𝑝</a>
+      </div>
+      <br>
+      </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <br><br><br><br><br><br>
+  <p class="text-center ms-5 text-secondary">code@GPG 2021</p>
+  <br>
+</div>
+{% endblock %} 
+
+
+
