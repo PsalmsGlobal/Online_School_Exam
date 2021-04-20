@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
+
+
 
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
@@ -13,6 +14,7 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.subject_name
+
 
 class Semester(models.Model):
     semester_name = models.CharField(max_length=30)
@@ -36,14 +38,22 @@ class Course(models.Model):
         html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % (color, course)
         return mark_safe(html)
 
-
+# student model
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.username
+
+# teacher model
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
+
+
+
  

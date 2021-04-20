@@ -1,0 +1,31 @@
+{% extends 'teachers/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="jumbotron">
+  <div class="row">
+    <div class="d-flex justify-content-center">
+    <div class="col-lg-5">
+    <div class="card-body border">
+      <h4 class=" card-header shadow text-center">ADD SUBJECT</h4>
+      <br>
+      <p class="text-center"></p>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <div class="text-center">
+        <button type="submit" class="btn btn-success mt-3">Save</button>
+        <a class="btn btn-primary mt-3" href="{% url 'teachers:home' %}" role="button">Back</a>
+      </div>
+      </form>
+      <br>
+    </div>
+  </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

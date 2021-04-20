@@ -9,7 +9,7 @@
         <div class="container">
 <div class="card">
     <div class="card-header">
-     <a  style="float: right;"> Assigned Subject(s) : </a> 
+     <a  style="float: right;"> Assigned Subject(s) : {{ subject }}</a> 
     </div>
     <div class="card-body">
       <h5 class="card-title">Hello Teacher</h5>
@@ -17,7 +17,8 @@
        
         
       <br><br><br><br><br>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <a href="{% url 'teachers:add_subject' %}" class="btn btn-primary">Add Subject</a>
+      <a href="{% url 'teachers:choose_subject' %}" class="btn btn-primary">Assigned Subject(s)</a>
       
     </div>
   </div>

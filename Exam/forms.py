@@ -1,9 +1,27 @@
-from .models import User, Student, Teacher, Course
-from django.contrib.auth.forms import UserCreationForm
+from .models import User, Student, Teacher, Course, Subject
+from django.contrib.auth.forms import UserCreationForm,  UserChangeForm
 from django import forms
 from django.forms import ModelForm
 from django.db import transaction
 
+
+class EditProfileForm(UserChangeForm):
+    password = forms.CharField(label="", max_length=100, widget=forms. TextInput(attrs={'type':'hidden'}))
+    email       = forms.EmailField(label="", widget=forms. TextInput(attrs={'class':'form-control', 'placeholder': 'Email Address'}))
+    first_name  = forms.CharField(label="", max_length=100, widget=forms. TextInput(attrs={'class':'form-control', 'placeholder': 'First Name'}))
+    last_name   = forms.CharField(label="", max_length=100, widget=forms. TextInput(attrs={'class':'form-control', 'placeholder': 'Last Name'}))
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email','password')
+        
+    def __init__(self, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        
+        self.fields['username'].widget.attrs['class']        = 'form-control'
+        self.fields['username'].widget.attrs['placeholder']  = 'User Name'
+        self.fields['username'].label = ''
+        self.fields['username'].help_text = '<span class ="form-text text-muted"><small></small></span>'
 
 
 class StudentSignUpForm(UserCreationForm):
@@ -85,7 +103,15 @@ class TeacherSignUpForm(UserCreationForm):
             user.save()
         return user
 
-class CourseForm(ModelForm):
+class SubjectForm(forms.ModelForm):
     class Meta:
-        model = Course
-        fields=['course']
+        model = Subject
+        fields = ('subject_name', 'subject_code' )
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = ('subject', )
+        widgets = {
+            'subject': forms.CheckboxSelectMultiple
+        }
